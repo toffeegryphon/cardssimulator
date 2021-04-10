@@ -12,5 +12,3 @@
 1. `cd cards/`
 2. `npm install`
 3. `npm start`
-
-random
