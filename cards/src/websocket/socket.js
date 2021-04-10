@@ -1,15 +1,6 @@
-// import { io } from "socket.io-client"
+import { io } from "socket.io-client"
 
-const url = 'ws://localhost:1337'
+const url = 'ws://0.0.0.0:8080'
 
-export const socket = new WebSocket(url)
+export const socket = io(url)
 
-const test = { hello: 'world' }
-
-socket.onopen = () => {
-  socket.send(JSON.stringify(test))
-}
-
-socket.onmessage = (event) => {
-  console.log(event)
-}
