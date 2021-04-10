@@ -20,6 +20,11 @@ async def chat_message(sid, data):
 def disconnect(sid):
     print('disconnect ', sid)
 
+@sio.on('join')
+def on_join(sid, rid: str):
+    sio.enter_room(sid, rid)
+    return rid
+
 #  app.router.add_static('/static', 'static')
 #  app.router.add_get('/', index)
 
