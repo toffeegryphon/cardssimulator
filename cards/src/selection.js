@@ -4,23 +4,27 @@ import { joinRoom } from './websocket/socket.js'
 export default class Selection extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { rid: '' }
+    this.state = { rid: '', joined: false }
   }
 
-  setRid = (rid) => {
-    this.setState({ rid })
-    console.log(rid)
+  onJoined = (rid) => {
+    this.setState({ rid, joined: true })
   }
 
   handleChange = (event) => {
-    this.setRid(event.target.value)
+    this.setState({ rid: event.target.value })
   }
 
   handleJoin = (event) => {
-    joinRoom(this.state.rid, this.setRid)
+    joinRoom(this.state.rid, this.onJoined)
   }
 
   render() {
+    if (this.state.joined) {
+      return (
+        <div>Room {this.state.rid}</div>
+      )
+    }
     return (
       <div>
         <div>Enter Room Code: </div>
