@@ -4,7 +4,6 @@ class GameInstance:
     deck = Holder()
     field = Holder()
     players = {
-    'uid' : Holder()
     }
 
     def __init__(self):
