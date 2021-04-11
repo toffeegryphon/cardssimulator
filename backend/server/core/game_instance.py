@@ -64,14 +64,14 @@ class GameInstance:
 
     #First is a boolean (if true, then player 1 is giving the card to player 2)
     def play(self, source: str, target: str, value: list):
-        s = None
-        if source == '_deck':
-            s = self.deck.hand
-        elif source == '_field':
-            s = self.field.hand
-        else:
-            s = self.players[source].hand
-
+        #  s = None
+        #  if source == '_deck':
+            #  s = self.deck.hand
+        #  elif source == '_field':
+            #  s = self.field.hand
+        #  else:
+            #  s = self.players[source].hand
+#
         t = None
         if target == '_deck':
             t = self.deck.hand
@@ -80,8 +80,11 @@ class GameInstance:
         else:
             t = self.players[source].hand
 
-        transfer = [card for card in s if card.uid in value]
-        s = [card for card in s if card.uid not in value]
+        #  transfer = [card for card in s if card.uid in value]
+        #  s = [card for card in s if card.uid not in value]
+        #  t += transfer
+        transfer = [card for card in self.players[source].hand if card.uid in value]
+        self.players[source].hand = [card for card in self.players[source].hand if card.uid not in value]
         t += transfer
 
         transfer = [card.serialize() for card in transfer]
