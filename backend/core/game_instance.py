@@ -11,20 +11,20 @@ class GameInstance:
     players = {}
 
     def addPlayer(self, pid, name):
-        players[pid] = Player(pid, name)
+        self.players[pid] = Player(pid, name)
     
     def initialize(self, pidList):
         for pid in pidList:
             self.players[pid].hand = []
         self.deck.hand = [Card(i) for i in range(52)]
-        shuffle('_deck')
-        print(deck.hand)
+        self.shuffle('_deck')
+        print(self.deck.hand)
         return { 'action': 'none', 'state': self.getState() }
 
     ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
         response = {}
-        for pid, player in self.players.entries:
+        for pid, player in self.players.items():
             response[pid] = len(player.hand)
         response['_field'] = len(self.field.hand)
         response['_deck'] = len(self.deck.hand)

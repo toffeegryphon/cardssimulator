@@ -17,7 +17,8 @@ export default class Selection extends React.Component {
   }
 
   handleJoin = (event) => {
-    joinRoom(this.state.rid, this.onJoined)
+    // TODO Change to an input field
+    joinRoom('testing', this.state.rid, this.onJoined)
   }
 
   render() {

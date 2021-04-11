@@ -8,8 +8,9 @@ socket.on('connect', () => {
   // joinRoom('abcd')
 })
 
-export function joinRoom(rid, update) {
-  socket.emit('join', rid, (response) => {
+export function joinRoom(name, rid, update) {
+  const data = { name, rid }
+  socket.emit('join', data, (response) => {
     // console.log(response)
     update(response)
   })
