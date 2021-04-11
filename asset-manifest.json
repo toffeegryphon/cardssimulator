@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/cardssimulator/static/css/main.293e1bbf.chunk.css",
-    "main.js": "/cardssimulator/static/js/main.830edcce.chunk.js",
-    "main.js.map": "/cardssimulator/static/js/main.830edcce.chunk.js.map",
+    "main.js": "/cardssimulator/static/js/main.dcc5b57a.chunk.js",
+    "main.js.map": "/cardssimulator/static/js/main.dcc5b57a.chunk.js.map",
     "runtime-main.js": "/cardssimulator/static/js/runtime-main.d71f48f6.js",
     "runtime-main.js.map": "/cardssimulator/static/js/runtime-main.d71f48f6.js.map",
     "static/js/2.4a2cb758.chunk.js": "/cardssimulator/static/js/2.4a2cb758.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d71f48f6.js",
     "static/js/2.4a2cb758.chunk.js",
     "static/css/main.293e1bbf.chunk.css",
-    "static/js/main.830edcce.chunk.js"
+    "static/js/main.dcc5b57a.chunk.js"
   ]
 }
