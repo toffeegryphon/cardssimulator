@@ -1,19 +1,26 @@
 import random
 
-number_of_cards_dealt = int(input("How many cards do you want dealt?"))
+class GameInstance:
+    deck = Holder()
+    field = Holder()
+    players = {
+    'uid' : Holder()
+    }
 
-while (number_of_cards_dealt > 52 or number_of_cards_dealt < 0) :
-    print("That number is invalid. Please retry.")
-    number_of_cards_dealt = int(input("How many cards do you want dealt?"))
+    def __init__(self):
+        deck.hand = [Card(i) for i in range(52)]
 
-suit = ["clubs", "diamonds", "hearts", "spades"]
-random_number_0 = random.randint(0, 3)
-random_number = random.randint(1, 13)
-tuple_generator = ()
+    def shuffle(self, target) :
+        if (target == 'deck') :
+            random.shuffle(deck.hand)
+        elif (target == 'field') :
+            random.shuffle(field.hand)
+        else:
+            random.shuffle(players["uid"].hand)
 
-for x in range(number_of_cards_dealt):
-    if ((random_number, suit[random_number_0]) in tuple_generator) :
-        print("Doing Nothing Here")
-    else:
-        tuple_generator.append(random_number, suit[random_number_0)
-        print(random_number, suit[random_number_0])
+
+    def deal(self, count, player, deck):
+        for number in range(count):
+            removed_value = random.choice(deck.hand)
+            deck.remove(removed_value)
+            player.hand.append(removed_value)
