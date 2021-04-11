@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from aiohttp import web
 import socketio
 from ..core.game_instance import GameInstance
 
-sio = socketio.AsyncServer(cors_allowed_origins='*')
-app = web.Application()
-sio.attach(app)
+sio = socketio.Server(async_mode='eventlet')
+app = socketio.WSGIApp(sio)
+import eventlet
+eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
 playerList = {}
 
 def get_players(rid: str):
@@ -87,5 +87,6 @@ async def on_deal(sid, data: dict):
 #  app.router.add_get('/', index)
 
 def run():
-    web.run_app(app)
+    #  web.run_app(app)
+    pass
 
