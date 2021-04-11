@@ -4,7 +4,7 @@
 import backend.server as server
 import backend.core as core
 
-from aiohttp import web
+import eventlet
 
 if __name__ == '__main__':
-    server.server.run()
+    eventlet.wsgi.server(eventlet.listen(('', 8000)), server.server.app)
