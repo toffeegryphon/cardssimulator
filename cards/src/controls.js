@@ -52,8 +52,10 @@ export default class Controls extends React.Component {
             onChange={this.handleChangeDeal}/>
         </div>
         <div className="info">Only one player presses start when 
-      everyone is ready! That will automatically shuffle the deck. 
-      Deal deals to everyone, draw only draws to yourself.</div>
+        everyone is ready! That will automatically shuffle the deck. 
+        Deal deals to everyone, draw only draws to yourself. Click on a
+        card to play to the field, and the field will show the last 
+        5 cards played.</div>
       </div>
     )
   }
