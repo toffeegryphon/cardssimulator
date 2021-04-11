@@ -16,7 +16,7 @@ class GameInstance:
         self.players = {}
 
     def addPlayer(self, pid, name):
-        print('ADDING: ' + pid)
+        #  print('ADDING: ' + pid)
         self.players[pid] = Player(pid, name)
 
     def removePlayer(self, pid):
@@ -28,7 +28,7 @@ class GameInstance:
             self.players[pid].hand = []
         self.deck.hand = [Card(i) for i in range(52)]
         self.shuffle('_deck')
-        print(self.deck.hand)
+        #  print(self.deck.hand)
         return { 'action': 'none', 'state': self.getState() }
 
     ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
