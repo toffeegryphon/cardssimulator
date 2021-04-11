@@ -65,8 +65,12 @@ async def on_shuffle(sid, data: dict):
 
 @sio.on('deal')
 async def on_deal(sid, data: dict):
-    for i in playerList[data['rid']]['players']:
-        await sio.emit('update', { 'action': 'add', **data }, room= i)
+    print(playerList)
+    rid = data['rid']
+    broadcast = get_instance(rid).deal(data['count'])
+    print(broadcast)
+    for pid in get_players(rid):
+        await sio.emit('update', { 'action': 'add', **data }, room=rid)
     
 
 #  app.router.add_static('/static', 'static')
