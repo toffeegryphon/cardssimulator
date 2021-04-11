@@ -34,14 +34,17 @@ class GameInstance:
     ## {'players': { 'user1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
         response = {}
-        player_dict = {}
         for pid, player in self.players.items():
-            player_dict[pid] = len(player.hand)
-            player_dict[pid] = player.name
+            response[pid] = { 
+                'count': len(player.hand), 
+                'name': player.name
+            }
         response['_field'] = len(self.field.hand)
         response['_deck'] = len(self.deck.hand)
-        response[pid] = player_dict;
         return response
+
+    def getField(self):
+        return [card.serialize() for card in self.field.hand]
 
 
     def shuffle(self, target) :

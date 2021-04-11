@@ -40,11 +40,18 @@ def on_join(sid, data: str):
         playerList[rid] = {'players': [sid], 'instance': GameInstance()}
     else:
         get_players(rid).append(sid)
-    get_instance(rid).addPlayer(sid, data['name'])
-    state = get_instance(rid).getState()
+    instance = get_instance(rid)
+    instance.addPlayer(sid, data['name'])
+    state = instance.getState()
     data = {'action': 'none', 'state': state}
     sio.emit('update', data, room=rid)
-    return {'rid': rid, 'sid': sid, 'state': state}
+    return {
+        'rid': rid,
+        'sid': sid,
+        'target': '_field',
+        'value': instance.getField(),
+        'state': state
+    }
 
 @sio.on('initialize')
 def on_initialize(sid, data: dict):
@@ -53,6 +60,19 @@ def on_initialize(sid, data: dict):
     #  print(broadcast)
     sio.emit('update', broadcast, room=data['rid'])
     return
+
+@sio.on('refresh')
+def on_refresh(sid, data: dict):
+    rid = data['rid']
+    instance = get_instance(rid)
+    state = instance.getState()
+    return {
+        'rid': rid,
+        'sid': sid,
+        'target': '_field',
+        'value': instance.getField(),
+        'state': state
+    }
 
 @sio.on('play')
 def on_play(sid, data: dict):
