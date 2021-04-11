@@ -22,6 +22,14 @@ export function playCard(cardId, rid, update) {
   })
 }
 
-// socket.on('update', (data) => {
- // console.log(data)
-// })
+export function drawCards(count, rid, update) {
+  const data = { count, rid }
+  socket.emit('draw', data, (response) => {
+    update(response)
+  })
+}
+
+export function dealCards(count, rid) {
+  const data = { count, rid }
+  socket.emit('deal', data)
+}
