@@ -29,10 +29,17 @@ def on_join(sid, rid: str):
     playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
     return rid
 
+@sio.on('initialize')
+async def on_initialize(sid, data: dict):
+    broadcast = playerList[data['rid']]['instance'].initialize()
+    print(broadcast)
+    await sio.emit('update', broadcast, room=data['rid'])
+
 @sio.on('play')
 async def on_play(sid, data: dict):
-    print(data)
     response, broadcast = playerList[data['rid']]['instance'].play(sid, data['target'], data['value'])
+    print(data)
+    print(broadcast)
     await sio.emit('update', broadcast, room=data['rid'])
     return response
     # await sio.emit('update', { 'action': 'add', **data }, room=data['rid'])
