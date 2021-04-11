@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import socketio
-from ..core.game_instance import GameInstance
+from server.core.game_instance import GameInstance
 
 sio = socketio.Server(async_mode='eventlet')
 app = socketio.WSGIApp(sio)
 import eventlet
 eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
+
 playerList = {}
 
 def get_players(rid: str):
