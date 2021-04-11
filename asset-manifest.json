@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/cardssimulator/static/css/main.423fb932.chunk.css",
-    "main.js": "/cardssimulator/static/js/main.cc83556d.chunk.js",
-    "main.js.map": "/cardssimulator/static/js/main.cc83556d.chunk.js.map",
-    "runtime-main.js": "/cardssimulator/static/js/runtime-main.ddf119b0.js",
-    "runtime-main.js.map": "/cardssimulator/static/js/runtime-main.ddf119b0.js.map",
+    "main.css": "/cardssimulator/static/css/main.e1ba3298.chunk.css",
+    "main.js": "/cardssimulator/static/js/main.be40789e.chunk.js",
+    "main.js.map": "/cardssimulator/static/js/main.be40789e.chunk.js.map",
+    "runtime-main.js": "/cardssimulator/static/js/runtime-main.6a699df8.js",
+    "runtime-main.js.map": "/cardssimulator/static/js/runtime-main.6a699df8.js.map",
     "static/js/2.32405435.chunk.js": "/cardssimulator/static/js/2.32405435.chunk.js",
     "static/js/2.32405435.chunk.js.map": "/cardssimulator/static/js/2.32405435.chunk.js.map",
-    "static/js/3.2f3c32a3.chunk.js": "/cardssimulator/static/js/3.2f3c32a3.chunk.js",
-    "static/js/3.2f3c32a3.chunk.js.map": "/cardssimulator/static/js/3.2f3c32a3.chunk.js.map",
+    "static/js/3.816f121e.chunk.js": "/cardssimulator/static/js/3.816f121e.chunk.js",
+    "static/js/3.816f121e.chunk.js.map": "/cardssimulator/static/js/3.816f121e.chunk.js.map",
     "index.html": "/cardssimulator/index.html",
-    "static/css/main.423fb932.chunk.css.map": "/cardssimulator/static/css/main.423fb932.chunk.css.map",
+    "static/css/main.e1ba3298.chunk.css.map": "/cardssimulator/static/css/main.e1ba3298.chunk.css.map",
     "static/js/2.32405435.chunk.js.LICENSE.txt": "/cardssimulator/static/js/2.32405435.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.ddf119b0.js",
+    "static/js/runtime-main.6a699df8.js",
     "static/js/2.32405435.chunk.js",
-    "static/css/main.423fb932.chunk.css",
-    "static/js/main.cc83556d.chunk.js"
+    "static/css/main.e1ba3298.chunk.css",
+    "static/js/main.be40789e.chunk.js"
   ]
 }
