@@ -1,13 +1,13 @@
 import random
-import Player from 'player.py'
-import Deck from 'deck.py'
-import Field from 'field.py'
+from .player import Player
+from .deck import Deck
+from .field import Field
+from .card import Card
 
 class GameInstance:
     deck = Deck()
     field = Field()
-    players = {
-    }
+    players = {}
 
     def __init__(self):
         self.deck.hand = [Card(i) for i in range(52)]
