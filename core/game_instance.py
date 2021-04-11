@@ -12,6 +12,10 @@ class GameInstance:
 
     def addPlayer(self, pid, name):
         self.players[pid] = Player(pid, name)
+
+    def removePlayer(self, pid):
+        player = self.players.pop(pid, Player())
+        self.deck.hand += player.hand
     
     def initialize(self, pidList):
         for pid in pidList:
