@@ -8,7 +8,7 @@ class Card:
 
     def __init__(self, uid):
         self.uid = uid
-        self.suit = uid % 13
+        self.suit = uid // 13
         self.rank = uid - self.suit * 13
 
     
@@ -18,7 +18,7 @@ class Card:
         return {
             "uid": self.uid, 
             "suit": SUITS[self.suit], 
-            "value": self.value
+            "value": self.rank
         }
 
     def __str__(self):
