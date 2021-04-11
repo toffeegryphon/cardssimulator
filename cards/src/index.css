@@ -14,7 +14,7 @@ code {
 
 .watermark {
   position: absolute;
-  font-size: 15em;
+  font-size: 12em;
   z-index: 0;
   opacity: 0.5;
 }
