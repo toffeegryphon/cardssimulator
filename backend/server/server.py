@@ -28,6 +28,7 @@ async def chat_message(sid, data):
 @sio.event
 def disconnect(sid):
     print('disconnect ', sid)
+    # TODO leave room
 
 @sio.on('join')
 def on_join(sid, data: str):
