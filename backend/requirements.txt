@@ -1,5 +1,10 @@
 asyncio==3.4.3
 bidict==0.21.2
+gevent==21.1.2
+greenlet==1.0.0
+pip-autoremove==0.9.1
 python-engineio==4.0.1
 python-socketio==5.1.0
-tornado==6.1
+uWSGI==2.0.19.1
+zope.event==4.5.0
+zope.interface==5.3.0
