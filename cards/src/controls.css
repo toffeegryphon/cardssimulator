@@ -1,0 +1,16 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1%;
+  border: 5px solid black;
+}
+
+.control {
+  padding: 1%;
+}
+
+.info {
+  max-width: 25%;
+  text-align: justify;
+}

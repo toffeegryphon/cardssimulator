@@ -66,7 +66,7 @@ export default class Room extends React.Component {
     }
 
     return (
-      <div>
+      <div className="room">
         <Players players={this.state._players}/>
         <Field hand={this.state.field}/>
         <div className="hand">
