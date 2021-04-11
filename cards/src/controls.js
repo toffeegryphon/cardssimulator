@@ -1,5 +1,5 @@
 import React from 'react'
-import { drawCards, dealCards } from './websocket/socket.js'
+import { initialize, drawCards, dealCards } from './websocket/socket.js'
 
 export default class Controls extends React.Component {
   constructor(props) {
@@ -18,6 +18,10 @@ export default class Controls extends React.Component {
     this.setState({ dealCount: event.target.value })
   }
 
+  handleInitialize = (event) => {
+    initialize(this.props.rid)
+  }
+
   handleDraw = (event) => {
     drawCards(this.state.drawCount, this.props.rid, this.props.onDraw)
   }
@@ -30,7 +34,10 @@ export default class Controls extends React.Component {
     return (
       <div>
         <div>
-        <button onClick={this.handleDraw}>Draw</button>
+          <button onClick={this.handleInitialize}>Start</button>
+        </div>
+        <div>
+          <button onClick={this.handleDraw}>Draw</button>
           <input
             type="number"
             value={this.state.drawCount}
