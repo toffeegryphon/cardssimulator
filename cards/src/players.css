@@ -1,0 +1,16 @@
+.players {
+  display: flex;
+  flex-direction: row;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0.5vh;
+}
+
+.name {
+  font-size: 1.5em;
+}

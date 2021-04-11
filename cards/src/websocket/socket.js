@@ -17,6 +17,13 @@ export function joinRoom(name, rid, update) {
   })
 }
 
+export function requestState(rid, update) {
+  const data = { rid }
+  socket.emit('refresh', data, (response) => {
+    update(response)
+  })
+}
+
 export function initialize(rid) {
   const data = { rid }
   socket.emit('initialize', data)

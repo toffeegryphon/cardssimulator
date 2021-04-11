@@ -3,8 +3,8 @@
 
 import socketio
 
-sio = socketio.Server(async_mode='gevent_uwsgi', cors_allowed_origins='*',
-                           logger=True, engineio_logger=True)
+sio = socketio.Server(async_mode='gevent_uwsgi', cors_allowed_origins='*')
+#  , logger=True, engineio_logger=True)
 
 
 from server.core.game_instance import GameInstance
@@ -30,7 +30,11 @@ def disconnect(sid):
             roomId = rid
             playerList[rid]['players'].remove(sid)
             get_instance(rid).removePlayer(sid)
-    sio.emit('update', {'action': 'none', 'state': get_instance(roomId).getState()})
+    if roomId and len(get_players(roomId)) == 0:
+        print('DELETED')
+        playerList.pop(roomId)
+    else:
+        sio.emit('update', {'action': 'none', 'state': get_instance(roomId).getState()})
 
 @sio.on('join')
 def on_join(sid, data: str):
@@ -38,13 +42,21 @@ def on_join(sid, data: str):
     sio.enter_room(sid, rid)
     if not playerList.get(rid, None):
         playerList[rid] = {'players': [sid], 'instance': GameInstance()}
+        print(playerList[rid]['instance'].field.hand)
     else:
         get_players(rid).append(sid)
-    get_instance(rid).addPlayer(sid, data['name'])
-    state = get_instance(rid).getState()
+    instance = get_instance(rid)
+    instance.addPlayer(sid, data['name'])
+    state = instance.getState()
     data = {'action': 'none', 'state': state}
     sio.emit('update', data, room=rid)
-    return {'rid': rid, 'sid': sid, 'state': state}
+    return {
+        'rid': rid,
+        'sid': sid,
+        'target': '_field',
+        'value': instance.getField(),
+        'state': state
+    }
 
 @sio.on('initialize')
 def on_initialize(sid, data: dict):
@@ -53,6 +65,19 @@ def on_initialize(sid, data: dict):
     #  print(broadcast)
     sio.emit('update', broadcast, room=data['rid'])
     return
+
+@sio.on('refresh')
+def on_refresh(sid, data: dict):
+    rid = data['rid']
+    instance = get_instance(rid)
+    state = instance.getState()
+    return {
+        'rid': rid,
+        'sid': sid,
+        'target': '_field',
+        'value': instance.getField(),
+        'state': state
+    }
 
 @sio.on('play')
 def on_play(sid, data: dict):

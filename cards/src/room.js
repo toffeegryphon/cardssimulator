@@ -4,7 +4,7 @@ import Field from './field.js'
 import Card from './card.js'
 import Controls from './controls.js'
 import Players from './players.js'
-import { socket } from './websocket/socket.js'
+import { socket, requestState } from './websocket/socket.js'
 
 export default class Room extends React.Component {
   constructor (props) {
@@ -18,38 +18,35 @@ export default class Room extends React.Component {
   }
 
   componentDidMount() {
+    requestState(this.props.rid, this.onUpdate)
     socket.on('update', (data) => {
-      console.log(data)
-      const newState = {
-        _deckSize: data.state._deck
-      }
-      delete data.state._deck
-      delete data.state._field
-      delete data.state[this.props.sid]
-      newState['_players'] = data.state
-
-      if (data.target === '_field') {
-        newState['field'] = this.state.field.concat(data.value)
-        // this.setState({ field: this.state.field.concat(data.value) })
-      } else if (data.action === 'add') {
-        newState['hand'] = this.state.hand.concat(data.value)
-        // this.setState({ hand: this.state.hand.concat(data.value) })
-      }
-      this.setState(newState)
+      this.onUpdate(data)
     })
   }
 
   onUpdate = (response) => {
-    console.log(response)
-    if (response.action === 'remove') {
-      const uids = response.value.map(card => card.uid);
-      this.setState({ hand: this.state.hand.filter((card) => {
-        return !uids.includes(card.uid) 
-      })})
-    } else if (response.action === 'add') {
-      console.log(response.value)
-      this.setState({ hand: this.state.hand.concat(response.value) })
+    // console.log(response)
+    const newState = {
     }
+    if ('state' in response) {
+      newState['_deckSize'] = response.state._deck
+      delete response.state._deck
+      delete response.state._field
+      delete response.state[this.props.sid]
+      newState['_players'] = response.state
+    }
+
+    if (response.target === '_field') {
+      newState['field'] = this.state.field.concat(response.value)
+    } else if (response.action === 'add') {
+      newState['hand'] = this.state.hand.concat(response.value)
+    } else if (response.action === 'remove') {
+      const uids = response.value.map(card => card.uid);
+      newState['hand'] = this.state.hand.filter((card) => {
+        return !uids.includes(card.uid) 
+      })
+    }
+    this.setState(newState)
   }
 
   render () {
@@ -67,9 +64,10 @@ export default class Room extends React.Component {
 
     return (
       <div className="room">
-        <Players players={this.state._players}/>
+        <Players players={this.state._players} deckSize={this.state._deckSize}/>
         <Field hand={this.state.field}/>
         <div className="hand">
+          <div className="watermark noselect">HAND</div>
           {hand}
         </div>
         <Controls 

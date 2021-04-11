@@ -12,6 +12,13 @@ code {
     monospace;
 }
 
+.watermark {
+  position: absolute;
+  font-size: 15em;
+  z-index: 0;
+  opacity: 0.5;
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

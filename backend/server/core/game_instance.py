@@ -6,10 +6,6 @@ from .card import Card
 from collections import Counter
 
 class GameInstance:
-    deck = None
-    field = None
-    players = None
-
     def __init__(self):
         self.deck = Deck()
         self.field = Field()
@@ -34,14 +30,20 @@ class GameInstance:
     ## {'players': { 'user1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
         response = {}
-        player_dict = {}
+        #  print(self.players.items())
         for pid, player in self.players.items():
-            player_dict[pid] = len(player.hand)
-            player_dict[pid] = player.name
+            #  print(player.pid)
+            #  print(player.hand)
+            response[pid] = { 
+                'count': len(player.hand), 
+                'name': player.name
+            }
         response['_field'] = len(self.field.hand)
         response['_deck'] = len(self.deck.hand)
-        response[pid] = player_dict;
         return response
+
+    def getField(self):
+        return [card.serialize() for card in self.field.hand]
 
 
     def shuffle(self, target) :
@@ -62,14 +64,14 @@ class GameInstance:
 
     #First is a boolean (if true, then player 1 is giving the card to player 2)
     def play(self, source: str, target: str, value: list):
-        s = None
-        if source == '_deck':
-            s = self.deck.hand
-        elif source == '_field':
-            s = self.field.hand
-        else:
-            s = self.players[source].hand
-
+        #  s = None
+        #  if source == '_deck':
+            #  s = self.deck.hand
+        #  elif source == '_field':
+            #  s = self.field.hand
+        #  else:
+            #  s = self.players[source].hand
+#
         t = None
         if target == '_deck':
             t = self.deck.hand
@@ -78,8 +80,11 @@ class GameInstance:
         else:
             t = self.players[source].hand
 
-        transfer = [card for card in s if card.uid in value]
-        s = [card for card in s if card.uid not in value]
+        #  transfer = [card for card in s if card.uid in value]
+        #  s = [card for card in s if card.uid not in value]
+        #  t += transfer
+        transfer = [card for card in self.players[source].hand if card.uid in value]
+        self.players[source].hand = [card for card in self.players[source].hand if card.uid not in value]
         t += transfer
 
         transfer = [card.serialize() for card in transfer]
