@@ -24,7 +24,13 @@ def connect(sid, environ):
 @sio.event
 def disconnect(sid):
     print('disconnect ', sid)
-    # TODO leave room
+    roomId = None
+    for rid in playerList:
+        if sid in get_players(rid):
+            roomId = rid
+            playerList[rid]['players'].remove(sid)
+            get_instance(rid).removePlayer(sid)
+    sio.emit('update', {'action': 'none', 'state': get_instance(roomId).getState()})
 
 @sio.on('join')
 def on_join(sid, data: str):
@@ -34,11 +40,11 @@ def on_join(sid, data: str):
         playerList[rid] = {'players': [sid], 'instance': GameInstance()}
     else:
         get_players(rid).append(sid)
-    #  playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
     get_instance(rid).addPlayer(sid, data['name'])
-    #  print(playerList)
-    #  print(get_instance(rid).players)
-    return rid
+    state = get_instance(rid).getState()
+    data = {'action': 'none', 'state': state}
+    sio.emit('update', data, room=rid)
+    return {'rid': rid, 'sid': sid, 'state': state}
 
 @sio.on('initialize')
 def on_initialize(sid, data: dict):

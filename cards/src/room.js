@@ -3,6 +3,7 @@ import './room.css'
 import Field from './field.js'
 import Card from './card.js'
 import Controls from './controls.js'
+import Players from './players.js'
 import { socket } from './websocket/socket.js'
 
 export default class Room extends React.Component {
@@ -11,8 +12,7 @@ export default class Room extends React.Component {
     this.state = {
       _deckSize: 0,
       _players: {},
-      hand: [
-      ],
+      hand: [],
       field: []
     }
   }
@@ -20,11 +20,22 @@ export default class Room extends React.Component {
   componentDidMount() {
     socket.on('update', (data) => {
       console.log(data)
-      if (data.target === '_field') {
-        this.setState({ field: this.state.field.concat(data.value) })
-      } else if (data.action === 'add') {
-        this.setState({ hand: this.state.hand.concat(data.value) })
+      const newState = {
+        _deckSize: data.state._deck
       }
+      delete data.state._deck
+      delete data.state._field
+      delete data.state[this.props.sid]
+      newState['_players'] = data.state
+
+      if (data.target === '_field') {
+        newState['field'] = this.state.field.concat(data.value)
+        // this.setState({ field: this.state.field.concat(data.value) })
+      } else if (data.action === 'add') {
+        newState['hand'] = this.state.hand.concat(data.value)
+        // this.setState({ hand: this.state.hand.concat(data.value) })
+      }
+      this.setState(newState)
     })
   }
 
@@ -56,6 +67,7 @@ export default class Room extends React.Component {
 
     return (
       <div>
+        <Players players={this.state._players}/>
         <Field hand={this.state.field}/>
         <div className="hand">
           {hand}

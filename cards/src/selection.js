@@ -1,15 +1,15 @@
 import React from 'react'
-import Hand from './room.js'
+import Room from './room.js'
 import { joinRoom } from './websocket/socket.js'
 
 export default class Selection extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { rid: '', joined: false }
+    this.state = { rid: '', sid: '', joined: false }
   }
 
-  onJoined = (rid) => {
-    this.setState({ rid, joined: true })
+  onJoined = (data) => {
+    this.setState({ ...data, joined: true })
   }
 
   handleChange = (event) => {
@@ -26,7 +26,7 @@ export default class Selection extends React.Component {
       return (
         <div>
           <div>Room {this.state.rid}</div>
-          <Hand rid={this.state.rid}/>
+          <Room rid={this.state.rid} sid={this.state.sid}/>
         </div>
       )
     }
