@@ -1,41 +1,78 @@
 import random
+import Player from 'player.py'
+import Deck from 'deck.py'
+import Field from 'field.py'
 
 class GameInstance:
-    deck = Holder()
-    field = Holder()
+    deck = Deck()
+    field = Field()
     players = {
     }
 
     def __init__(self):
-        deck.hand = [Card(i) for i in range(52)]
+        self.deck.hand = [Card(i) for i in range(52)]
+    
+    def initialize(self, pidList):
+        for pid in pidList:
+            self.players[pid] = Player()
+
 
     def shuffle(self, target) :
         if (target == 'deck') :
-            random.shuffle(deck.hand)
+            random.shuffle(self.deck.hand)
         elif (target == 'field') :
-            random.shuffle(field.hand)
+            random.shuffle(self.field.hand)
         else:
-            random.shuffle(players["uid"].hand)
+            random.shuffle(self.players["uid"].hand)
 
 
-    def deal(self, count, player, deck):
-        for number in range(count):
-            removed_value = random.choice(deck.hand)
-            deck.remove(removed_value)
-            player.hand.append(removed_value)
+    def deal(self, count):
+        messages = {}
+        for pid in self.players.keys():
+            messages[pid] = draw(pid, count)
+        return messages
+
 
     #First is a boolean (if true, then player 1 is giving the card to player 2)
-    def play(self, player1, player2, field, deck, first):
-        if (player2 == None):
-            players_card = player1.Card
-            player1.hand.remove(players_card)
-            field.append(players_card)
-        elif (first):
-            move_card(player1, player2)
+    def play(self, source: str, target: str, value: list):
+        s = None
+        if source == 'deck':
+            s = self.deck.hand
+        elif source == 'field':
+            s = self.field.hand
         else:
-            move_card(player2, player1)
+            s = self.players[source].hand
+        
+        t = None
+        if target == 'deck':
+            t = self.deck.hand
+        elif target == 'field':
+            t = self.field.hand
+        else:
+            t = self.players[source].hand
+        
+        transfer = [card for card in s if card.uid in value]
+        s = [card for card in s if card.uid not in value]
+        t += transfer
 
-    def move_card(player1, player2):
-        players_card = player1.Card
-        player1.hand.remove(players_card)
-        player2.append(players_card)
+        return {
+            source: { 'action': 'remove', 'value': transfer },
+            target: { 'action': 'add', 'value': transfer }
+        }
+
+    def draw(self, target, numCard):      
+        t = None
+        if t == 'deck':
+            t = self.deck.hand
+        elif target == 'field':
+            t = self.field.hand
+        else:
+            t = self.players[source].hand
+        
+        transfer = self.deck[:numCard]
+        self.deck = self.deck[numCard:]
+        t += transfer
+
+        return { 'action': 'add', 'value': transfer }
+        
+
