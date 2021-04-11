@@ -22,7 +22,7 @@ class GameInstance:
     def removePlayer(self, pid):
         player = self.players.pop(pid, Player())
         self.deck.hand += player.hand
-    
+
     def initialize(self, pidList):
         for pid in pidList:
             self.players[pid].hand = []
@@ -31,13 +31,16 @@ class GameInstance:
         #  print(self.deck.hand)
         return { 'action': 'none', 'state': self.getState() }
 
-    ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
+    ## {'players': { 'user1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
         response = {}
+        player_dict = {}
         for pid, player in self.players.items():
-            response[pid] = len(player.hand)
+            player_dict[pid] = len(player.hand)
+            player_dict[pid] = player.name
         response['_field'] = len(self.field.hand)
         response['_deck'] = len(self.deck.hand)
+        response[pid] = player_dict;
         return response
 
 
@@ -66,7 +69,7 @@ class GameInstance:
             s = self.field.hand
         else:
             s = self.players[source].hand
-        
+
         t = None
         if target == '_deck':
             t = self.deck.hand
@@ -74,7 +77,7 @@ class GameInstance:
             t = self.field.hand
         else:
             t = self.players[source].hand
-        
+
         transfer = [card for card in s if card.uid in value]
         s = [card for card in s if card.uid not in value]
         t += transfer
@@ -83,11 +86,11 @@ class GameInstance:
 
         return (
             { 'action': 'remove', 'value': transfer },
-            { 
-                'action': 'add', 
-                'target': target, 
-                'value': transfer, 
-                'state': self.getState() 
+            {
+                'action': 'add',
+                'target': target,
+                'value': transfer,
+                'state': self.getState()
             }
         )
 
@@ -100,7 +103,7 @@ class GameInstance:
             t = self.field.hand
         else:
             t = self.players[target].hand
-        
+
         transfer = self.deck.hand[:numCard]
         self.deck.hand = self.deck.hand[numCard:]
         t += transfer
@@ -111,5 +114,3 @@ class GameInstance:
             { 'action': 'add', 'value': transfer },
             { 'action': 'none', 'state': self.getState() if withState else None }
         )
-        
-
