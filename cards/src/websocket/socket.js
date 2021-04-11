@@ -22,6 +22,6 @@ export function playCard(cardId, rid, update) {
   })
 }
 
-socket.on('update', (data) => {
- console.log(data)
-})
+// socket.on('update', (data) => {
+ // console.log(data)
+// })
