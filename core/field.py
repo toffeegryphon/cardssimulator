@@ -1,4 +1,4 @@
-import Holder
+from .holder import Holder
 
 class Field(Holder):
     _type = 'field'

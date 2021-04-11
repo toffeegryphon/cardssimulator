@@ -1,8 +1,6 @@
-import Holder
+from .holder import Holder
 
 class Deck(Holder):
-    deckNumber = ''
     _type = 'deck'
-    def __init__(self, setDeckNumber):
+    def __init__(self):
         super(Holder, self).__init__()
-        deckNumber = setDeckNumber
