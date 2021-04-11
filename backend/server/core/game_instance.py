@@ -6,10 +6,6 @@ from .card import Card
 from collections import Counter
 
 class GameInstance:
-    deck = None
-    field = None
-    players = None
-
     def __init__(self):
         self.deck = Deck()
         self.field = Field()
@@ -34,7 +30,10 @@ class GameInstance:
     ## {'players': { 'user1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
         response = {}
+        #  print(self.players.items())
         for pid, player in self.players.items():
+            #  print(player.pid)
+            #  print(player.hand)
             response[pid] = { 
                 'count': len(player.hand), 
                 'name': player.name

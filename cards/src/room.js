@@ -25,7 +25,7 @@ export default class Room extends React.Component {
   }
 
   onUpdate = (response) => {
-    console.log(response)
+    // console.log(response)
     const newState = {
     }
     if ('state' in response) {
@@ -38,10 +38,8 @@ export default class Room extends React.Component {
 
     if (response.target === '_field') {
       newState['field'] = this.state.field.concat(response.value)
-      // this.setState({ field: this.state.field.concat(data.value) })
     } else if (response.action === 'add') {
       newState['hand'] = this.state.hand.concat(response.value)
-      // this.setState({ hand: this.state.hand.concat(data.value) })
     } else if (response.action === 'remove') {
       const uids = response.value.map(card => card.uid);
       newState['hand'] = this.state.hand.filter((card) => {
@@ -50,19 +48,6 @@ export default class Room extends React.Component {
     }
     this.setState(newState)
   }
-
-  // onUpdate = (response) => {
-    // console.log(response)
-    // if (response.action === 'remove') {
-      // const uids = response.value.map(card => card.uid);
-      // this.setState({ hand: this.state.hand.filter((card) => {
-        // return !uids.includes(card.uid)
-      // })})
-    // } else if (response.action === 'add') {
-      // console.log(response.value)
-      // this.setState({ hand: this.state.hand.concat(response.value) })
-    // }
-  // }
 
   render () {
     const hand = []
@@ -79,7 +64,7 @@ export default class Room extends React.Component {
 
     return (
       <div className="room">
-        <Players players={this.state._players}/>
+        <Players players={this.state._players} deckSize={this.state._deckSize}/>
         <Field hand={this.state.field}/>
         <div className="hand">
           <div className="watermark noselect">HAND</div>

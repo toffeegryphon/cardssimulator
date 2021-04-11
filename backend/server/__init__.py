@@ -3,8 +3,8 @@
 
 import socketio
 
-sio = socketio.Server(async_mode='gevent_uwsgi', cors_allowed_origins='*',
-                           logger=True, engineio_logger=True)
+sio = socketio.Server(async_mode='gevent_uwsgi', cors_allowed_origins='*')
+#  , logger=True, engineio_logger=True)
 
 
 from server.core.game_instance import GameInstance
@@ -30,7 +30,11 @@ def disconnect(sid):
             roomId = rid
             playerList[rid]['players'].remove(sid)
             get_instance(rid).removePlayer(sid)
-    sio.emit('update', {'action': 'none', 'state': get_instance(roomId).getState()})
+    if roomId and len(get_players(roomId)) == 0:
+        print('DELETED')
+        playerList.pop(roomId)
+    else:
+        sio.emit('update', {'action': 'none', 'state': get_instance(roomId).getState()})
 
 @sio.on('join')
 def on_join(sid, data: str):
@@ -38,6 +42,7 @@ def on_join(sid, data: str):
     sio.enter_room(sid, rid)
     if not playerList.get(rid, None):
         playerList[rid] = {'players': [sid], 'instance': GameInstance()}
+        print(playerList[rid]['instance'].field.hand)
     else:
         get_players(rid).append(sid)
     instance = get_instance(rid)
