@@ -58,8 +58,6 @@ async def on_play(sid, data: dict):
     #  print(broadcast)
     await sio.emit('update', broadcast, room=data['rid'])
     return response
-    # await sio.emit('update', { 'action': 'add', **data }, room=data['rid'])
-    # return { 'action': 'remove', 'value': data['value']}
 
 @sio.on('shuffle')
 async def on_shuffle(sid, data: dict):
@@ -80,7 +78,7 @@ async def on_deal(sid, data: dict):
     #  print(broadcast)
     for pid in broadcast:
         message = broadcast[pid]
-        print(message)
+        #  print(message)
         message['state'] = state
         await sio.emit('update', message, room=pid)
     
