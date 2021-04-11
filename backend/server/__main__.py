@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 import socketio
 from server.core.game_instance import GameInstance
-from . import sio
+#  from . import sio
+from aiohttp import web
 
-#  sio = socketio.Server(async_mode='eventlet')
-#  app = socketio.WSGIApp(sio)
-#  import eventlet
-#  eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
+sio = socketio.AsyncServer(
+    cors_allowed_origins=['https://toffeegryphon.github.io/cardssimulator/']
+)
+app = web.Application()
+sio.attach(app)
 
 playerList = {}
 
@@ -87,8 +90,7 @@ async def on_deal(sid, data: dict):
 
 #  app.router.add_static('/static', 'static')
 #  app.router.add_get('/', index)
-
-def run():
-    #  web.run_app(app)
-    pass
-
+    
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    web.run_app(app, port=port)
