@@ -24,6 +24,8 @@ export default class Room extends React.Component {
       console.log(data)
       if (data.target === '_field') {
         this.setState({ field: this.state.field.concat(data.value) })
+      } else if (data.action === 'add') {
+        this.setState({ hand: this.state.hand.concat(data.value) })
       }
     })
   }
@@ -35,6 +37,7 @@ export default class Room extends React.Component {
         return !response.value.includes(card.uid) 
       })})
     } else if (response.action === 'add') {
+      console.log(response.value)
       this.setState({ hand: this.state.hand.concat(response.value) })
     }
   }

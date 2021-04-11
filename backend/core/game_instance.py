@@ -48,8 +48,7 @@ class GameInstance:
         messages = {}
         for pid in self.players.keys():
             messages[pid] = self.draw(pid, count)
-        messages['state'] = self.getState()
-        return messages
+        return (messages, self.getState())
 
 
     #First is a boolean (if true, then player 1 is giving the card to player 2)
