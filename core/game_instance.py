@@ -53,7 +53,7 @@ class GameInstance:
     def deal(self, count):
         messages = {}
         for pid in self.players.keys():
-            messages[pid] = self.draw(pid, count)
+            messages[pid] = self.draw(pid, int(count), False)[0]
         return (messages, self.getState())
 
 
@@ -91,7 +91,8 @@ class GameInstance:
             }
         )
 
-    def draw(self, target, numCard):      
+    def draw(self, target, numCard, withState=True):
+        numCard = int(numCard)
         t = None
         if t == '_deck':
             t = self.deck.hand
@@ -106,6 +107,9 @@ class GameInstance:
 
         transfer = [card.serialize() for card in transfer]
 
-        return { 'action': 'add', 'value': transfer }
+        return (
+            { 'action': 'add', 'value': transfer },
+            { 'action': 'none', 'state': self.getState() if withState else None }
+        )
         
 
