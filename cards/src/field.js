@@ -19,7 +19,10 @@ export default class Field extends React.Component {
       )
     }
     return (
-      <div className="field">{hand}</div>
+      <div className="field">
+        <div className="watermark noselect">FIELD</div>
+        {hand}
+      </div>
     )
   }
   

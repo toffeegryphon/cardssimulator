@@ -70,6 +70,7 @@ export default class Room extends React.Component {
         <Players players={this.state._players}/>
         <Field hand={this.state.field}/>
         <div className="hand">
+          <div className="watermark noselect">HAND</div>
           {hand}
         </div>
         <Controls 
