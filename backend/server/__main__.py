@@ -5,14 +5,6 @@ import os
 import socketio
 from server.core.game_instance import GameInstance
 from . import sio, app
-import tornado
-#  from aiohttp import web
-
-#  sio = socketio.AsyncServer(
-    #  cors_allowed_origins='*'
-#  )
-#  app = web.Application()
-#  sio.attach(app)
 
 playerList = {}
 
@@ -94,7 +86,4 @@ async def on_deal(sid, data: dict):
     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
-    #  web.run_app(app, port=port)
-    app.listen(port)
-    print("Listening to " + str(port))
-    tornado.ioloop.IOLoop.current().start()
+    
