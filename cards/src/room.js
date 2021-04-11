@@ -21,25 +21,6 @@ export default class Room extends React.Component {
     requestState(this.props.rid, this.onUpdate)
     socket.on('update', (data) => {
       this.onUpdate(data)
-      // console.log(data)
-      // const newState = {
-        // _deckSize: data.state._deck
-      // }
-      // delete data.state._deck
-      // delete data.state._field
-      // delete data.state[this.props.sid]
-      // newState['_players'] = data.state
-      // if (data.target === '_field') {
-        // newState['field'] = this.state.field.concat(data.value)
-      // } else if (data.action === 'add') {
-        // newState['hand'] = this.state.hand.concat(data.value)
-      // } else if (response.action === 'remove') {
-        // const uids = response.value.map(card => card.uid);
-        // newState['hand'] = this.state.hand.filter((card) => {
-          // return !uids.includes(card.uid)
-        // })
-      // }
-      // this.setState(newState)
     })
   }
 
