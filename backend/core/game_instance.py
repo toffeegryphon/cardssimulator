@@ -10,13 +10,15 @@ class GameInstance:
     field = Field()
     players = {}
 
-    def __init__(self):
-        self.deck.hand = [Card(i) for i in range(52)]
+    def addPlayer(self, pid, name):
+        players[pid] = Player(pid, name)
     
     def initialize(self, pidList):
         for pid in pidList:
-            self.players[pid] = Player()
+            self.players[pid].hand = []
+        self.deck.hand = [Card(i) for i in range(52)]
         shuffle('_deck')
+        print(deck.hand)
         return { 'action': 'none', 'state': self.getState() }
 
     ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
