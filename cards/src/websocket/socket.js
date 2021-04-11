@@ -1,8 +1,10 @@
 import { io } from "socket.io-client"
 
-const url = 'ws://0.0.0.0:8080'
+// const url = 'ws://0.0.0.0:8080'
+const url = 'wss://hackillinois-cards.herokuapp.com'
+const options = {}
 
-export const socket = io(url)
+export const socket = io(url, options)
 
 socket.on('connect', () => {
   // joinRoom('abcd')

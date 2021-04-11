@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from aiohttp import web
+import os
 import socketio
-from ..core.game_instance import GameInstance
+from server.core.game_instance import GameInstance
+from . import sio, app
 
-sio = socketio.AsyncServer(cors_allowed_origins='*')
-app = web.Application()
-sio.attach(app)
 playerList = {}
 
 def get_players(rid: str):
@@ -85,7 +83,7 @@ async def on_deal(sid, data: dict):
 
 #  app.router.add_static('/static', 'static')
 #  app.router.add_get('/', index)
-
-def run():
-    web.run_app(app)
-
+    
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 8080))
+    
