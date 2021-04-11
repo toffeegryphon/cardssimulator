@@ -14,12 +14,10 @@ class Card:
 
     
     def serialize(self):
-        if self.rank not in RANKS:
-            self.rank += 1
         return {
             "uid": self.uid, 
             "suit": SUITS[self.suit], 
-            "value": RANKS.get(self.rank, self.rank)
+            "value": RANKS.get(self.rank, self.rank + 1)
         }
 
     def __str__(self):
