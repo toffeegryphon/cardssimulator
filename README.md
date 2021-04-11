@@ -1,4 +1,4 @@
-# HackIllinois-PlayingCards
+# HackIllinois - Card Party
 A card simulator, meant to be played while communicating over applications like Zoom and Discord. It is about rekindling connections, whether due to Covid, or moving away from home to study. We found it difficult to find online versions of certain card games, so we decided to just implement a single interface, while the rules etc. can be provided by the players themselves, freeing them from any restrictions.
 
 ## Git
