@@ -6,11 +6,17 @@ from .card import Card
 from collections import Counter
 
 class GameInstance:
-    deck = Deck()
-    field = Field()
-    players = {}
+    deck = None
+    field = None
+    players = None
+
+    def __init__(self):
+        self.deck = Deck()
+        self.field = Field()
+        self.players = {}
 
     def addPlayer(self, pid, name):
+        print('ADDING: ' + pid)
         self.players[pid] = Player(pid, name)
 
     def removePlayer(self, pid):

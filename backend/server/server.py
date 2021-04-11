@@ -34,15 +34,21 @@ def disconnect(sid):
 def on_join(sid, data: str):
     rid = data['rid']
     sio.enter_room(sid, rid)
-    playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
+    if not playerList.get(rid, None):
+        playerList[rid] = {'players': [sid], 'instance': GameInstance()}
+    else:
+        get_players(rid).append(sid)
+    #  playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
     get_instance(rid).addPlayer(sid, data['name'])
+    print(playerList)
+    print(get_instance(rid).players)
     return rid
 
 @sio.on('initialize')
 async def on_initialize(sid, data: dict):
     rid = data['rid']
     broadcast = get_instance(rid).initialize(get_players(rid))
-    print(broadcast)
+    #  print(broadcast)
     await sio.emit('update', broadcast, room=data['rid'])
 
 @sio.on('play')
@@ -72,7 +78,7 @@ async def on_deal(sid, data: dict):
     for pid in broadcast:
         message = broadcast[pid]
         message['state'] = state
-        await sio.emit('update', message, room=rid)
+        await sio.emit('update', message, room=pid)
     
 
 #  app.router.add_static('/static', 'static')
