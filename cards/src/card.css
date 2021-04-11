@@ -1,3 +1,16 @@
 .card {
-  padding: 1%;
+  margin: 1vh;
+  border: 0.5vh solid black;
+  border-radius: 2vh;
+  width: 20vh;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.text {
+  font-weight: 900;
 }
