@@ -10,7 +10,8 @@ export default class Card extends React.Component {
   render() {
     return (
       <div className='card noselect' onClick={this.handleClick}>
-        {this.props.suit} {this.props.value}
+        <div className="text">{this.props.suit}</div>
+        <div className="text">{this.props.value}</div>
       </div>
     )
   }

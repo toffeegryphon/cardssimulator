@@ -8,6 +8,8 @@
 .hand {
   display: flex;
   flex-direction: row;
-  border: 5px solid black;
+  justify-content: space-around;
+  border: 0.5vh solid black;
+  min-height: 33vh;
 }
 
