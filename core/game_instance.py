@@ -16,6 +16,8 @@ class GameInstance:
     def initialize(self, pidList):
         for pid in pidList:
             self.players[pid] = Player()
+        shuffle('_deck')
+        return { 'action': 'none', 'state': self.getState() }
 
     ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
     def getState(self):
@@ -69,7 +71,12 @@ class GameInstance:
 
         return (
             { 'action': 'remove', 'value': transfer },
-            { 'action': 'add', 'target': target, 'value': transfer, self.getState() }
+            { 
+                'action': 'add', 
+                'target': target, 
+                'value': transfer, 
+                'state': self.getState() 
+            }
         )
 
     def draw(self, target, numCard):      
