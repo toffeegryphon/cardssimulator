@@ -15,3 +15,13 @@ export function joinRoom(rid, update) {
   })
 }
 
+export function playCard(cardId, rid, update) {
+  const data = { target: '_field', value: [cardId], rid }
+  socket.emit('play', data, (response) => {
+    update(response)
+  })
+}
+
+socket.on('update', (data) => {
+ console.log(data)
+})

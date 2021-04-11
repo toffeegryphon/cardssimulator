@@ -1,0 +1,9 @@
+.hand {
+  display: flex;
+  flex-direction: row;
+  border: 5px solid black;
+}
+
+.card {
+  padding: 1%;
+}

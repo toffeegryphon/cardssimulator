@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import Hand from './room.js'
 import { joinRoom } from './websocket/socket.js'
 
 export default class Selection extends React.Component {
@@ -22,7 +23,10 @@ export default class Selection extends React.Component {
   render() {
     if (this.state.joined) {
       return (
-        <div>Room {this.state.rid}</div>
+        <div>
+          <div>Room {this.state.rid}</div>
+          <Hand rid={this.state.rid}/>
+        </div>
       )
     }
     return (

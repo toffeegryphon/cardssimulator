@@ -25,6 +25,12 @@ def on_join(sid, rid: str):
     sio.enter_room(sid, rid)
     return rid
 
+@sio.on('play')
+async def on_play(sid, data: dict):
+    print(data)
+    await sio.emit('update', { 'action': 'add', **data }, room=data['rid'])
+    return { 'action': 'remove', 'value': data['value']}
+
 #  app.router.add_static('/static', 'static')
 #  app.router.add_get('/', index)
 
