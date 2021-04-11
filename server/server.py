@@ -36,7 +36,7 @@ async def on_play(sid, data: dict):
 
 @sio.on('shuffle')
 async def on_shuffle(sid, data: dict):
-    
+    pass
          
             
     
@@ -51,6 +51,9 @@ async def on_deal(sid, data: dict):
 #  app.router.add_static('/static', 'static')
 #  app.router.add_get('/', index)
 
-if __name__ == '__main__':
+def run():
     web.run_app(app)
+
+#  if __name__ == '__main__':
+    #  web.run_app(app)
 
