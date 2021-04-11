@@ -1,7 +1,7 @@
 import { io } from "socket.io-client"
 
 // const url = 'ws://0.0.0.0:8080'
-const url = 'wss://hackillinois-cards.herokuapp.com/'
+const url = 'wss://hackillinois-cards.herokuapp.com:53484'
 
 export const socket = io(url)
 
