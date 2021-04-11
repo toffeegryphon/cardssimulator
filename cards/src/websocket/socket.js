@@ -8,11 +8,17 @@ socket.on('connect', () => {
   // joinRoom('abcd')
 })
 
-export function joinRoom(rid, update) {
-  socket.emit('join', rid, (response) => {
+export function joinRoom(name, rid, update) {
+  const data = { name, rid }
+  socket.emit('join', data, (response) => {
     // console.log(response)
     update(response)
   })
+}
+
+export function initialize(rid) {
+  const data = { rid }
+  socket.emit('initialize', data)
 }
 
 export function playCard(cardId, rid, update) {
@@ -22,6 +28,14 @@ export function playCard(cardId, rid, update) {
   })
 }
 
-// socket.on('update', (data) => {
- // console.log(data)
-// })
+export function drawCards(count, rid, update) {
+  const data = { count, rid }
+  socket.emit('draw', data, (response) => {
+    update(response)
+  })
+}
+
+export function dealCards(count, rid) {
+  const data = { count, rid }
+  socket.emit('deal', data)
+}
