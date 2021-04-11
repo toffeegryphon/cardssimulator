@@ -13,4 +13,4 @@ class Card:
     def serialize(self):
         specialCard = {0: "Ace", 10: "Jack", 11: "Queen", 12: "King"}
         rank_name = specialCard[self.rank] if self.rank in specialCard else self.rank
-        return '%s of %s'%(rank_name, self.suit)
+        return {"uid": self.uid, "suit": self.suit, "value": self.value}

@@ -1,4 +1,4 @@
-import Holder
+import Holder from 'holder.py'
 
 class Player(Holder):
     pid = ''
