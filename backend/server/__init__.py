@@ -6,7 +6,6 @@ import socketio
 sio = socketio.Server(async_mode='gevent_uwsgi', cors_allowed_origins='*',
                            logger=True, engineio_logger=True)
 
-app = socketio.WSGIApp(sio)
 
 from server.core.game_instance import GameInstance
 
@@ -79,7 +78,5 @@ def on_deal(sid, data: dict):
         #  print(message)
         message['state'] = state
         sio.emit('update', message, room=pid)
-
-from gevent import pywsgi
-#  pywsgi.WSGIServer(('', 8000), app).serve_forever()
+app = socketio.WSGIApp(sio)
 
