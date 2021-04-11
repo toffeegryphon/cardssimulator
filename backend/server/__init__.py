@@ -12,3 +12,5 @@ app = tornado.web.Application(
         (r'/socket.io/', socketio.get_tornado_handler(sio))
     ]
 )
+
+sio.attach(app)
