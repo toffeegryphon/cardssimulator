@@ -1,6 +1,6 @@
 {
   "name": "cards",
-  "homepage": "http://toffeegryphon.github.io/cards",
+  "homepage": "http://toffeegryphon.github.io/cardssimulator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
