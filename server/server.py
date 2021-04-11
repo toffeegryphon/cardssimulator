@@ -10,6 +10,12 @@ app = web.Application()
 sio.attach(app)
 playerList = {}
 
+def get_players(rid: str):
+    return playerList[rid]['players']
+
+def get_instance(rid: str):
+    return playerList[rid]['instance']
+
 @sio.event
 def connect(sid, environ):
     print("connect ", sid)
@@ -31,7 +37,8 @@ def on_join(sid, rid: str):
 
 @sio.on('initialize')
 async def on_initialize(sid, data: dict):
-    broadcast = playerList[data['rid']]['instance'].initialize()
+    rid = data['rid']
+    broadcast = get_instance(rid).initialize(get_players(rid))
     print(broadcast)
     await sio.emit('update', broadcast, room=data['rid'])
 
