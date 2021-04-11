@@ -1,4 +1,5 @@
 import React from 'react'
+import './card.css'
 import { playCard } from './websocket/socket.js'
 
 export default class Card extends React.Component {
