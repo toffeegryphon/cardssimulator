@@ -30,9 +30,11 @@ def disconnect(sid):
     print('disconnect ', sid)
 
 @sio.on('join')
-def on_join(sid, rid: str):
+def on_join(sid, data: str):
+    rid = data['rid']
     sio.enter_room(sid, rid)
     playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
+    get_instance(rid).addPlayer(sid, data['name'])
     return rid
 
 @sio.on('initialize')
