@@ -3,10 +3,11 @@
 
 from aiohttp import web
 import socketio
-from ..core.game_instance import GameInstance
+from server.core.game_instance import GameInstance
+from . import app, sio
 
-sio = socketio.AsyncServer(cors_allowed_origins='*')
-app = web.Application()
+#  sio = socketio.AsyncServer(cors_allowed_origins='*')
+#  app = web.Application()
 sio.attach(app)
 playerList = {}
 
@@ -88,4 +89,7 @@ async def on_deal(sid, data: dict):
 
 def run():
     web.run_app(app)
+
+if __name__ == '__main__':
+    run()
 
