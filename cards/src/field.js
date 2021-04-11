@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './card.js'
-import { socket } from './websocket/socket.js'
+import './field.css'
 
 export default class Field extends React.Component {
   render () {
@@ -19,7 +19,7 @@ export default class Field extends React.Component {
       )
     }
     return (
-      <div>{hand}</div>
+      <div className="field">{hand}</div>
     )
   }
   
