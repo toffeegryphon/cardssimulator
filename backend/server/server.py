@@ -40,8 +40,8 @@ def on_join(sid, data: str):
         get_players(rid).append(sid)
     #  playerList.setdefault(rid, { 'players': [], 'instance': GameInstance()})['players'].append(sid)
     get_instance(rid).addPlayer(sid, data['name'])
-    print(playerList)
-    print(get_instance(rid).players)
+    #  print(playerList)
+    #  print(get_instance(rid).players)
     return rid
 
 @sio.on('initialize')
@@ -54,29 +54,31 @@ async def on_initialize(sid, data: dict):
 @sio.on('play')
 async def on_play(sid, data: dict):
     response, broadcast = playerList[data['rid']]['instance'].play(sid, data['target'], data['value'])
-    print(data)
-    print(broadcast)
+    #  print(data)
+    #  print(broadcast)
     await sio.emit('update', broadcast, room=data['rid'])
     return response
-    # await sio.emit('update', { 'action': 'add', **data }, room=data['rid'])
-    # return { 'action': 'remove', 'value': data['value']}
 
 @sio.on('shuffle')
 async def on_shuffle(sid, data: dict):
     pass
-         
-            
-    
-    
+
+@sio.on('draw')
+async def on_draw(sid, data: dict):
+    rid = data['rid']
+    response, broadcast = get_instance(rid).draw(sid, data['count'])
+
+    await sio.emit('update', broadcast, room = rid)
+    return response
 
 @sio.on('deal')
 async def on_deal(sid, data: dict):
-    print(playerList)
     rid = data['rid']
     broadcast, state = get_instance(rid).deal(data['count'])
-    print(broadcast)
+    #  print(broadcast)
     for pid in broadcast:
         message = broadcast[pid]
+        #  print(message)
         message['state'] = state
         await sio.emit('update', message, room=pid)
     
@@ -86,7 +88,4 @@ async def on_deal(sid, data: dict):
 
 def run():
     web.run_app(app)
-
-#  if __name__ == '__main__':
-    #  web.run_app(app)
 

@@ -16,7 +16,7 @@ class GameInstance:
         self.players = {}
 
     def addPlayer(self, pid, name):
-        print('ADDING: ' + pid)
+        #  print('ADDING: ' + pid)
         self.players[pid] = Player(pid, name)
 
     def removePlayer(self, pid):
@@ -28,7 +28,7 @@ class GameInstance:
             self.players[pid].hand = []
         self.deck.hand = [Card(i) for i in range(52)]
         self.shuffle('_deck')
-        print(self.deck.hand)
+        #  print(self.deck.hand)
         return { 'action': 'none', 'state': self.getState() }
 
     ## {'players': { 'use1': 10, 'user2': 3}, '_field': 3, '_deck':x}
@@ -53,7 +53,7 @@ class GameInstance:
     def deal(self, count):
         messages = {}
         for pid in self.players.keys():
-            messages[pid] = self.draw(pid, count)
+            messages[pid] = self.draw(pid, int(count), False)[0]
         return (messages, self.getState())
 
 
@@ -91,7 +91,8 @@ class GameInstance:
             }
         )
 
-    def draw(self, target, numCard):      
+    def draw(self, target, numCard, withState=True):
+        numCard = int(numCard)
         t = None
         if t == '_deck':
             t = self.deck.hand
@@ -106,6 +107,9 @@ class GameInstance:
 
         transfer = [card.serialize() for card in transfer]
 
-        return { 'action': 'add', 'value': transfer }
+        return (
+            { 'action': 'add', 'value': transfer },
+            { 'action': 'none', 'state': self.getState() if withState else None }
+        )
         
 

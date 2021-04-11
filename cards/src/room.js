@@ -12,8 +12,6 @@ export default class Room extends React.Component {
       _deckSize: 0,
       _players: {},
       hand: [
-        { uid: 12, suit: 'Spades', value: 'King' },
-        { uid: 15, suit: 'Hearts', value: '3' }
       ],
       field: []
     }
@@ -33,8 +31,9 @@ export default class Room extends React.Component {
   onUpdate = (response) => {
     console.log(response)
     if (response.action === 'remove') {
+      const uids = response.value.map(card => card.uid);
       this.setState({ hand: this.state.hand.filter((card) => {
-        return !response.value.includes(card.uid) 
+        return !uids.includes(card.uid) 
       })})
     } else if (response.action === 'add') {
       console.log(response.value)

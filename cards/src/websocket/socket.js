@@ -11,7 +11,6 @@ socket.on('connect', () => {
 export function joinRoom(name, rid, update) {
   const data = { name, rid }
   socket.emit('join', data, (response) => {
-    // console.log(response)
     update(response)
   })
 }

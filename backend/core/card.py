@@ -1,10 +1,11 @@
 SUITS = ['Spades', 'Hearts', 'Clubs', 'Diamonds']
+RANKS = {0: "Ace", 10: "Jack", 11: "Queen", 12: "King"}
 
 class Card:
     uid = 0
     isVisible = True
-    rank = ''
-    suit = ''
+    rank = 0
+    suit = 0
 
     def __init__(self, uid):
         self.uid = uid
@@ -13,12 +14,10 @@ class Card:
 
     
     def serialize(self):
-        specialCard = {0: "Ace", 10: "Jack", 11: "Queen", 12: "King"}
-        rank_name = specialCard[self.rank] if self.rank in specialCard else self.rank
         return {
             "uid": self.uid, 
             "suit": SUITS[self.suit], 
-            "value": self.rank
+            "value": RANKS.get(self.rank, self.rank)
         }
 
     def __str__(self):
